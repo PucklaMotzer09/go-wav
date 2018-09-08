@@ -3,9 +3,7 @@ package wav
 import (
 	"bufio"
 	bin "encoding/binary"
-	"fmt"
 	"io"
-	"os"
 )
 
 type WavData struct {
@@ -80,7 +78,7 @@ func ReadWavData(file io.ReadSeeker) (wav WavData, err error) {
 			err = bin.Read(file_buf, bin.LittleEndian, &wav.Data)
 			return
 		}
-		if err = file.Seek(SubchunkStart+int64(SubchunkSize), 0); err != nil {
+		if _,err = file.Seek(SubchunkStart+int64(SubchunkSize), 0); err != nil {
 			return
 		}
 	}
